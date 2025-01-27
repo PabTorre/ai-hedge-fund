@@ -9,6 +9,7 @@ from agents.portfolio_manager import portfolio_management_agent
 from agents.technicals import technical_analyst_agent
 from agents.risk_manager import risk_management_agent
 from agents.sentiment import sentiment_agent
+from agents.warren_buffett import warren_buffett_agent
 from graph.state import AgentState
 from agents.valuation import valuation_agent
 from utils.display import print_trading_output
@@ -109,6 +110,7 @@ def create_workflow(selected_analysts=None):
         "fundamentals_analyst": ("fundamentals_agent", fundamentals_agent),
         "sentiment_analyst": ("sentiment_agent", sentiment_agent),
         "valuation_analyst": ("valuation_agent", valuation_agent),
+        "warren_buffett": ("warren_buffett_agent", warren_buffett_agent),
     }
 
     # Add selected analyst nodes
@@ -135,6 +137,12 @@ def create_workflow(selected_analysts=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run the hedge fund trading system")
+    parser.add_argument(
+        "--initial-cash",
+        type=float,
+        default=100000.0,
+        help="Initial cash position. Defaults to 100000.0)"
+    )
     parser.add_argument("--tickers", type=str, required=True, help="Comma-separated list of stock ticker symbols")
     parser.add_argument(
         "--start-date",
@@ -206,10 +214,10 @@ if __name__ == "__main__":
     else:
         start_date = args.start_date
 
-    # Initialize portfolio with multiple tickers
+    # Initialize portfolio with cash amount and stock positions
     portfolio = {
-        "cash": 100000.0,  # $100,000 initial cash
-        "positions": {ticker: 0 for ticker in tickers},  # No initial stock positions
+        "cash": args.initial_cash,  # Initial cash amount
+        "positions": {ticker: 0 for ticker in tickers}  # Initial stock positions
     }
 
     # Run the hedge fund

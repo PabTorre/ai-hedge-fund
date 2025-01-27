@@ -7,13 +7,16 @@ This system employs several agents working together:
 1. Valuation Agent - Calculates the intrinsic value of a stock and generates trading signals
 2. Sentiment Agent - Analyzes market sentiment and generates trading signals
 3. Fundamentals Agent - Analyzes fundamental data and generates trading signals
-4. Technical Analyst - Analyzes technical indicators and generates trading signals
-5. Risk Manager - Calculates risk metrics and sets position limits
-6. Portfolio Manager - Makes final trading decisions and generates orders
+4. Technicals Agent - Analyzes technical indicators and generates trading signals
+5. Warren Buffett Agent - Uses Warren Buffett's principles to generate trading signals
+6. Risk Manager - Calculates risk metrics and sets position limits
+7. Portfolio Manager - Makes final trading decisions and generates orders
    
 <img width="1060" alt="Screenshot 2025-01-03 at 5 39 25 PM" src="https://github.com/user-attachments/assets/4611aace-27d0-43b2-9a70-385b40336e3f" />
 
 Note: the system simulates trading decisions, it does not actually trade.
+
+[![Twitter Follow](https://img.shields.io/twitter/follow/virattt?style=social)](https://twitter.com/virattt)
 
 ## Disclaimer
 
@@ -83,7 +86,7 @@ For any other ticker, you will need to set the `FINANCIAL_DATASETS_API_KEY` in t
 
 ### Running the Hedge Fund
 ```bash
-poetry run python src/main.py --ticker AAPL
+poetry run python src/main.py --ticker AAPL,MSFT,NVDA
 ```
 
 **Example Output:**
@@ -92,18 +95,18 @@ poetry run python src/main.py --ticker AAPL
 You can also specify a `--show-reasoning` flag to print the reasoning of each agent to the console.
 
 ```bash
-poetry run python src/main.py --ticker AAPL --show-reasoning
+poetry run python src/main.py --ticker AAPL,MSFT,NVDA --show-reasoning
 ```
 You can optionally specify the start and end dates to make decisions for a specific time period.
 
 ```bash
-poetry run python src/main.py --ticker AAPL --start-date 2024-01-01 --end-date 2024-03-01 
+poetry run python src/main.py --ticker AAPL,MSFT,NVDA --start-date 2024-01-01 --end-date 2024-03-01 
 ```
 
 ### Running the Backtester
 
 ```bash
-poetry run python src/backtester.py --ticker AAPL
+poetry run python src/backtester.py --ticker AAPL,MSFT,NVDA
 ```
 
 **Example Output:**
@@ -112,7 +115,7 @@ poetry run python src/backtester.py --ticker AAPL
 You can optionally specify the start and end dates to backtest over a specific time period.
 
 ```bash
-poetry run python src/backtester.py --ticker AAPL --start-date 2024-01-01 --end-date 2024-03-01
+poetry run python src/backtester.py --ticker AAPL,MSFT,NVDA --start-date 2024-01-01 --end-date 2024-03-01
 ```
 
 ### Model Selection
@@ -165,6 +168,7 @@ ai-hedge-fund/
 │   │   ├── sentiment.py          # Sentiment analysis agent
 │   │   ├── technicals.py         # Technical analysis agent
 │   │   ├── valuation.py          # Valuation analysis agent
+│   │   ├── warren_buffett.py     # Warren Buffett agent
 │   ├── tools/                    # Agent tools
 │   │   ├── api.py                # API tools
 │   ├── backtester.py             # Backtesting tools
